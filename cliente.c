@@ -45,7 +45,13 @@ main(int argc, char *argv[])
     {
       help();
     }
-    else if (!strcmp(buffer, "shutdown") == 0)
+
+    if (strcmp(buffer, "exit") == 0)
+    {
+      exit(EXIT_SUCCESS);
+    }
+
+    if (strcmp(buffer, "shutdown") != 0 && strcmp(buffer, "help") != 0)
     {
       printf("%s\n\n", buffer);
     }

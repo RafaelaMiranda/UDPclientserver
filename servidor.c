@@ -52,30 +52,30 @@ main(int argc, char * argv[])
     }
 
     else if (strcmp(buffer,"time") == 0) {
-      snprintf(buffer,sizeof(buffer),"%d:%d:%d \n", timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
+      snprintf(buffer,sizeof(buffer),"%d:%d:%d", timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
     }
      else if(strcmp(buffer,"nodename") == 0) {
-      strcpy(buffer, ("Node name:   %s\n\n", uts.nodename));
+      strcpy(buffer, ("Node name:   %s", uts.nodename));
     }
      else if(strcmp(buffer,"sysname") == 0) {
-      strcpy(buffer, ("System name: %s\n\n", uts.sysname));
+      strcpy(buffer, ("System name: %s", uts.sysname));
     }
      else if(strcmp(buffer,"release") == 0) {
-      strcpy(buffer,("Release:    %s\n\n", uts.release));
+      strcpy(buffer,("Release:    %s", uts.release));
 
     }
      else if(strcmp(buffer,"version") == 0) {
-      strcpy(buffer,("Version:     %s\n\n", uts.version));
+      strcpy(buffer,("Version:     %s", uts.version));
     }
 
     else if(strcmp(buffer,"machine") == 0) {
-      strcpy(buffer,("Machine:     %s\n\n", uts.machine));
+      strcpy(buffer,("Machine:     %s", uts.machine));
     }
      else if(strcmp(buffer,"shutdown") == 0) {
       // COMANDOS
     }
      else if(strcmp(buffer,"credits") == 0){
-      strcpy(buffer,"### Versão de terminal linux desenvolvido para a matéria de Redes\n### Copyright by Rafaela Gomes de Miranda e Victo Ferreira Lima\n\n");
+      strcpy(buffer,"### Versão de terminal linux desenvolvido para a matéria de Redes\n### Copyright by Rafaela Gomes de Miranda e Victo Ferreira Lima");
     }
      else if(strcmp(buffer,"exit") == 0) {
       // COMANDOS
