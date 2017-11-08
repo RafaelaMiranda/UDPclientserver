@@ -21,8 +21,14 @@ main(int argc, char * argv[])
   int tamanho_servidor = sizeof(servidor);
   char buffer[MAX_SIZE_BUFFER];
 
-  time_t t = time(NULL);
-  struct tm tm = *localtime(&t);
+  time_t rawtime;
+  struct tm * timeinfo;
+
+  time(&rawtime);
+  timeinfo = localtime(&rawtime);
+  int mes = timeinfo->tm_mon;
+  mes = mes + 1;
+  int ano = timeinfo->tm_year;
 
   printf("------------------------------------------------------\n");
   printf("Servidor aguardando comandos pela porta 6000\n");
@@ -37,27 +43,24 @@ main(int argc, char * argv[])
  
  bind(socket_servidor,(struct sockaddr *)&servidor, tamanho_servidor); 
  
- while (1) {
+ while (strcmp(buffer, "shutdown") != 0) {
     bytes_recebidos = recvfrom(socket_servidor, buffer, MAX_SIZE_BUFFER, 0,(struct sockaddr *)&cliente,&tamanho_cliente);
     printf("Comando a ser processado: %s.\n", buffer);
 
-  
-    if(strcmp(buffer,"date") == 0){
-      //strcpy(buffer, "%d/%d/%d\n\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
-      //printf("%d/%d/%d\n\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+    if(strcmp(buffer,"date") == 0) {
+      snprintf(buffer,sizeof(buffer),"%d/%d/%d", timeinfo->tm_mday, mes, ano + 1900);
     }
 
-    else if (strcmp(buffer,"time") == 0){
-      //strcpy(buffer, ("%d:%d:%d\n\n", tm.tm_hour, tm.tm_min, tm.tm_sec));
-      //printf("%d:%d:%d\n\n", tm.tm_hour, tm.tm_min, tm.tm_sec);
+    else if (strcmp(buffer,"time") == 0) {
+      snprintf(buffer,sizeof(buffer),"%d:%d:%d \n", timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
     }
-     else if(strcmp(buffer,"nodename") == 0){
+     else if(strcmp(buffer,"nodename") == 0) {
       strcpy(buffer, ("Node name:   %s\n\n", uts.nodename));
     }
-     else if(strcmp(buffer,"sysname") == 0){
+     else if(strcmp(buffer,"sysname") == 0) {
       strcpy(buffer, ("System name: %s\n\n", uts.sysname));
     }
-     else if(strcmp(buffer,"release") == 0){
+     else if(strcmp(buffer,"release") == 0) {
       strcpy(buffer,("Release:    %s\n\n", uts.release));
 
     }
@@ -69,18 +72,16 @@ main(int argc, char * argv[])
       strcpy(buffer,("Machine:     %s\n\n", uts.machine));
     }
      else if(strcmp(buffer,"shutdown") == 0) {
-      //close(socket_servidor); 
+      // COMANDOS
     }
      else if(strcmp(buffer,"credits") == 0){
       strcpy(buffer,"### Versão de terminal linux desenvolvido para a matéria de Redes\n### Copyright by Rafaela Gomes de Miranda e Victo Ferreira Lima\n\n");
     }
      else if(strcmp(buffer,"exit") == 0) {
-      //strcpy(buffer,"Encerrando... \n\n");
-      //exit(EXIT_FAILURE);
+      // COMANDOS
     }
      else if(strcmp(buffer,"help") == 0) {
-      //strcpy(buffer, help());
-      //help();
+      // COMANDOS
     }
      else {
       strcpy(buffer,"Comando não encontrado ou invalido\n\n");
