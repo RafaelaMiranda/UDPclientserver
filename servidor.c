@@ -2,7 +2,7 @@
 // SERVIDOR.C 
 // Exemplo de uso do mecanismo de comunicação por Socket - UDP
 // Programa que recebe e envia uma mensagem para outro processo via socket
-// Rafaela Gomes de Miranda
+// Rafaela Gomonth de Miranda
 // Victo Ferreira Lima
 //=============================================================================
 
@@ -10,6 +10,7 @@
 #include "./help.h"
 #include <sys/utsname.h>
 #include <time.h>
+#include <string.h>
 main(int argc, char * argv[])
 {
   struct utsname uts;
@@ -26,12 +27,13 @@ main(int argc, char * argv[])
 
   time(&rawtime);
   timeinfo = localtime(&rawtime);
-  int mes = timeinfo->tm_mon;
-  mes = mes + 1;
-  int ano = timeinfo->tm_year;
+  int month = timeinfo->tm_mon;
+  month = month + 1;
+  int year = timeinfo->tm_year;
+
 
   printf("------------------------------------------------------\n");
-  printf("Servidor aguardando comandos pela porta 6000\n");
+  printf("Servidor aguardando comandos pela porta %d\n", atoi(argv[1]));
   printf("------------------------------------------------------\n");
   
   socket_servidor = socket(AF_INET, SOCK_DGRAM, 0);
@@ -44,11 +46,13 @@ main(int argc, char * argv[])
  bind(socket_servidor,(struct sockaddr *)&servidor, tamanho_servidor); 
  
  while (strcmp(buffer, "shutdown") != 0) {
+    char comands[] = {'shutdown','date','time', 'nodename', 'sysname', 'release', 'version', 'machine', 'credits', 'exit', 'help'};
+   
     bytes_recebidos = recvfrom(socket_servidor, buffer, MAX_SIZE_BUFFER, 0,(struct sockaddr *)&cliente,&tamanho_cliente);
     printf("Comando a ser processado: %s.\n", buffer);
 
     if(strcmp(buffer,"date") == 0) {
-      snprintf(buffer,sizeof(buffer),"%d/%d/%d", timeinfo->tm_mday, mes, ano + 1900);
+      snprintf(buffer,sizeof(buffer),"%d/%d/%d", timeinfo->tm_mday, month, year + 1900);
     }
 
     else if (strcmp(buffer,"time") == 0) {
@@ -75,17 +79,20 @@ main(int argc, char * argv[])
       // COMANDOS
     }
      else if(strcmp(buffer,"credits") == 0){
-      strcpy(buffer,"### Versão de terminal linux desenvolvido para a matéria de Redes\n### Copyright by Rafaela Gomes de Miranda e Victo Ferreira Lima");
+      strcpy(buffer,"### Versão de terminal linux desenvolvido para a matéria de Redes\n### Copyright by Rafaela Gomonth de Miranda e Victo Ferreira Lima");
     }
      else if(strcmp(buffer,"exit") == 0) {
       // COMANDOS
     }
-     else if(strcmp(buffer,"help") == 0) {
-      // COMANDOS
+
+    else {
+      for(int i = 0; i < 11; i++) {
+        if(strcmp(buffer,comands[i]) != 0) {
+          strcpy(buffer,"Comando não encontrado ou invalido");
+        }
+      }
     }
-     else {
-      strcpy(buffer,"Comando não encontrado ou invalido\n\n");
-    }
+
     bytes_enviados = sendto(socket_servidor, buffer,MAX_SIZE_BUFFER, 0, (struct sockaddr *)&cliente, tamanho_cliente);
  }
  close(socket_servidor);  
