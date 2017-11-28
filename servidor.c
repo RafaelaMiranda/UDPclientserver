@@ -61,32 +61,32 @@ main(int argc, char *argv[])
     }
     else if (strcmp(buffer, "nodename") == 0)
     {
-      strcpy(buffer, ("Node name:   %s", uts.nodename));
+      strcpy(buffer, uts.nodename);
     }
     else if (strcmp(buffer, "sysname") == 0)
     {
-      strcpy(buffer, ("System name: %s", uts.sysname));
+      strcpy(buffer, uts.sysname);
     }
     else if (strcmp(buffer, "release") == 0)
     {
-      strcpy(buffer, ("Release:    %s", uts.release));
+      strcpy(buffer, uts.release);
     }
     else if (strcmp(buffer, "version") == 0)
     {
-      strcpy(buffer, ("Version:     %s", uts.version));
+      strcpy(buffer, uts.version);
     }
 
     else if (strcmp(buffer, "machine") == 0)
     {
-      strcpy(buffer, ("Machine:     %s", uts.machine));
+      strcpy(buffer, uts.machine);
     }
 
     else if (strcmp(buffer, "credits") == 0)
     {
-      strcpy(buffer, "### Versão de terminal linux desenvolvido para a matéria de Redes\n### Copyright by Rafaela Gomonth de Miranda e Victo Ferreira Lima");
+      strcpy(buffer, "### Versão de terminal linux desenvolvido para a matéria de Redes\n### Copyright by Rafaela Gomes de Miranda e Victo Ferreira Lima");
     }
 
-    else if ((strcmp(buffer, "date") != 0) && (strcmp(buffer, "time") != 0) && (strcmp(buffer, "nodename") != 0) && (strcmp(buffer, "sysname") != 0) && (strcmp(buffer, "release") != 0) && (strcmp(buffer, "version") != 0) && (strcmp(buffer, "machine") != 0) && (strcmp(buffer, "shutdown") != 0) && (strcmp(buffer, "credits") != 0) && (strcmp(buffer, "exit") != 0) && (strcmp(buffer, "help") != 0))
+    else if((strcmp(buffer, "date") != 0) && (strcmp(buffer, "time") != 0) && (strcmp(buffer, "nodename") != 0) && (strcmp(buffer, "sysname") != 0) && (strcmp(buffer, "release") != 0) && (strcmp(buffer, "version") != 0) && (strcmp(buffer, "machine") != 0) && (strcmp(buffer, "shutdown") != 0) && (strcmp(buffer, "credits") != 0) && (strcmp(buffer, "exit") != 0) && (strcmp(buffer, "help") != 0))
     {
       strcpy(buffer, "Comando não encontrado ou invalido");
     }
