@@ -2,7 +2,7 @@
 // SERVIDOR.C
 // Exemplo de uso do mecanismo de comunicação por Socket - UDP
 // Programa que recebe e envia uma mensagem para outro processo via socket
-// Rafaela Gomonth de Miranda
+// Rafaela Gomes de Miranda
 // Victo Ferreira Lima
 //=============================================================================
 

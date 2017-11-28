@@ -1,3 +1,10 @@
+//=============================================================================
+// HELP.H
+// Arquivo contendo as include e definições necessárias ao código da aplicação
+// Rafaela Gomes de Miranda
+// Victo Ferreira Lima
+//=============================================================================
+
 #include <stdio.h>
 void help() {
     printf("\n----------------------------------------------------------\n");
