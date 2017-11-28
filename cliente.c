@@ -31,24 +31,21 @@ main(int argc, char *argv[])
   struct sockaddr_in servidor;
   int tamanho_servidor = sizeof(servidor);
   char buffer[MAX_SIZE_BUFFER];
-    
+
   while (strcmp(buffer, "shutdown") != 0)
   {
-    // DATA E HORA
-    time_t t = time(NULL);
-    struct tm tm = *localtime(&t);
 
     // DESCOBRINDO IP
     unsigned char ip_address[15];
     int fd;
     struct ifreq ifr;
-     
+
     fd = socket(AF_INET, SOCK_DGRAM, 0);
     ifr.ifr_addr.sa_family = AF_INET;
-    memcpy(ifr.ifr_name, "wlp5s0", IFNAMSIZ-1);
+    memcpy(ifr.ifr_name, "wlp5s0", IFNAMSIZ - 1);
     ioctl(fd, SIOCGIFADDR, &ifr);
     close(fd);
-    strcpy(ip_address,inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr));
+    strcpy(ip_address, inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr));
 
     socket_servidor = socket(AF_INET, SOCK_DGRAM, 0);
 
@@ -57,7 +54,7 @@ main(int argc, char *argv[])
     servidor.sin_port = htons(atoi(argv[2]));
     servidor.sin_addr.s_addr = inet_addr(argv[1]);
 
-    printf("%s:%d @: ", ip_address , atoi(argv[2]));
+    printf("%s:%d @: ", ip_address, atoi(argv[2]));
     gets(buffer);
 
     bytes_enviados = sendto(socket_servidor, buffer, MAX_SIZE_BUFFER, 0, (struct sockaddr *)&servidor, sizeof(servidor));

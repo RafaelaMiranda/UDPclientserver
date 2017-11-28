@@ -22,6 +22,7 @@ main(int argc, char *argv[])
   int tamanho_servidor = sizeof(servidor);
   char buffer[MAX_SIZE_BUFFER];
 
+  // DATA E HORA
   time_t rawtime;
   struct tm *timeinfo;
 
@@ -79,13 +80,13 @@ main(int argc, char *argv[])
     {
       strcpy(buffer, ("Machine:     %s", uts.machine));
     }
-    
+
     else if (strcmp(buffer, "credits") == 0)
     {
       strcpy(buffer, "### Versão de terminal linux desenvolvido para a matéria de Redes\n### Copyright by Rafaela Gomonth de Miranda e Victo Ferreira Lima");
     }
 
-    else if((strcmp(buffer, "date") != 0) && (strcmp(buffer, "time") != 0) && (strcmp(buffer, "nodename") != 0) && (strcmp(buffer, "sysname") != 0) && (strcmp(buffer, "release") != 0) && (strcmp(buffer, "version") != 0) && (strcmp(buffer, "machine") != 0) && (strcmp(buffer, "shutdown") != 0) && (strcmp(buffer, "credits") != 0) && (strcmp(buffer, "exit") != 0) && (strcmp(buffer, "help") != 0))
+    else if ((strcmp(buffer, "date") != 0) && (strcmp(buffer, "time") != 0) && (strcmp(buffer, "nodename") != 0) && (strcmp(buffer, "sysname") != 0) && (strcmp(buffer, "release") != 0) && (strcmp(buffer, "version") != 0) && (strcmp(buffer, "machine") != 0) && (strcmp(buffer, "shutdown") != 0) && (strcmp(buffer, "credits") != 0) && (strcmp(buffer, "exit") != 0) && (strcmp(buffer, "help") != 0))
     {
       strcpy(buffer, "Comando não encontrado ou invalido");
     }
