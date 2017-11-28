@@ -30,7 +30,7 @@ main(int argc, char *argv[])
   int socket_servidor, bytes_enviados, bytes_recebidos;
   struct sockaddr_in servidor;
   int tamanho_servidor = sizeof(servidor);
-  char buffer[MAX_SIZE_BUFFER] = "";
+  char buffer[MAX_SIZE_BUFFER];
     
   while (strcmp(buffer, "shutdown") != 0)
   {
